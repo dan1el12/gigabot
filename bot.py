@@ -10,7 +10,7 @@ fecha_actual = datetime.now(zona_horaria).strftime("%A, %d de %B de %Y - %H:%M")
 
 load_dotenv()
 TOKEN = os.getenv("DISCORD_TOKEN")
-CHUTES_API_KEY = os.getenv("CHUTES_API_KEY")
+OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -25,9 +25,9 @@ def obtener_nombre_autor(display_name):
     return display_name.split()[0]  # Usar primer nombre como fallback
 
 async def ask_deepseek(prompt, author_name, historial_usuario):
-    url = "https://llm.chutes.ai/v1/chat/completions"
+    url = "https://openrouter.ai/api/v1/chat/completions"
     headers = {
-        "Authorization": f"Bearer {CHUTES_API_KEY}",
+        "Authorization": f"Bearer {OPENROUTER_API_KEY}",
         "Content-Type": "application/json"
     }
 
@@ -71,7 +71,7 @@ async def ask_deepseek(prompt, author_name, historial_usuario):
     mensajes = [{"role": "system", "content": system_prompt}] + historial_usuario + [{"role": "user", "content": prompt}]
 
     payload = {
-        "model": "deepseek-ai/DeepSeek-V3-0324",
+        "model": "deepseek/deepseek-chat-v3-0324:free",
         "messages": mensajes,
         "max_tokens": 1000,
         "temperature": 0.6,
