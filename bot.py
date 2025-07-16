@@ -71,7 +71,7 @@ async def ask_deepseek(prompt, author_name, historial_usuario):
     mensajes = [{"role": "system", "content": system_prompt}] + historial_usuario + [{"role": "user", "content": prompt}]
 
     payload = {
-        "model": "deepseek/deepseek-chat-v3-0324:free",
+        "model": "deepseek/deepseek-chat-v3-0324",
         "messages": mensajes,
         "max_tokens": 1000,
         "temperature": 0.6,
